@@ -1,11 +1,20 @@
 {
   "shard_name": "Project Atlas",
-  "folder_path": "C:\\Program Files (x86)\\Project Atlas",
+  "client_directory": "C:\\Program Files (x86)\\Project Atlas",
+  "update_url": "https://raw.githubusercontent.com/rickybobby-atlas/ProjectAtlasClient/main/",
   "files": [
     {
-      "name": "ProjectAtlas.exe",
-      "version": "1.0.0",
-      "url": "https://raw.githubusercontent.com/rickybobby-atlas/ProjectAtlasClient/main/ProjectAtlas.exe"
+      "name": "ClassicUO.exe",
+      "version": "1.0.0.0",
+      "is_launcher_update": false
+    },
+    {
+      "name": "Data/Plugins/RazorEnhanced/RazorEnhanced.exe",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "Data/Plugins/ClassicAssist/ClassicAssist.exe",
+      "version": "1.0.0.0"
     }
   ]
 }
