@@ -1,0 +1,11 @@
+{
+  "shard_name": "Project Atlas",
+  "folder_path": "C:\\Program Files (x86)\\Project Atlas",
+  "files": [
+    {
+      "name": "ProjectAtlas.exe",
+      "version": "1.0.0",
+      "url": "https://raw.githubusercontent.com/rickybobby-atlas/ProjectAtlasClient/main/ProjectAtlas.exe"
+    }
+  ]
+}
