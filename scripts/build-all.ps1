@@ -14,11 +14,11 @@ New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 Copy-Item "$PSScriptRoot\..\config\atlaslauncher.cfg" -Destination $OutputDir -Force
 Write-Host "[OK] Copied atlaslauncher.cfg to artifacts." -ForegroundColor Green
 
-# Build ClassicUO once Phase 2 adds it
+# Build ClassicUO (Managed Release so Assistant plugins like Razor Enhanced can load)
 $cuoProject = "$PSScriptRoot\..\src\ClassicUO\src\ClassicUO.Client\ClassicUO.Client.csproj"
 if (Test-Path $cuoProject) {
     Write-Host "Building ClassicUO Client..." -ForegroundColor Yellow
-    dotnet publish $cuoProject -c $Configuration -o "$OutputDir\Client"
+    dotnet publish $cuoProject -c $Configuration -o "$OutputDir\Client" -p:PublishAot=false
     Write-Host "[OK] ClassicUO compiled successfully." -ForegroundColor Green
 } else {
     Write-Host "[SKIP] ClassicUO not added yet (Scheduled for Phase 2)." -ForegroundColor DarkGray

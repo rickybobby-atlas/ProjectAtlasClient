@@ -1,4 +1,5 @@
-﻿name: Project Atlas Client CI
+﻿@'
+name: Project Atlas Client CI
 
 on:
   push:
@@ -17,12 +18,13 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Setup .NET 8 & .NET 9
+    - name: Setup .NET SDKs
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
           8.0.x
           9.0.x
+          10.0.x
 
     - name: Run Master Build Script
       shell: pwsh
@@ -33,3 +35,4 @@ jobs:
       with:
         name: ProjectAtlas-Release-Build
         path: artifacts/
+'@ | Set-Content -Path "C:\UO_Projects\ProjectAtlasClient\.github\workflows\ci-build.yml" -Encoding UTF8
