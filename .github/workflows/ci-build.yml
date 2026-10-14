@@ -1,0 +1,35 @@
+﻿name: Project Atlas Client CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository & Submodules
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup .NET 8 & .NET 9
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+
+    - name: Run Master Build Script
+      shell: pwsh
+      run: ./scripts/build-all.ps1 -Configuration Release
+
+    - name: Upload Compiled Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ProjectAtlas-Release-Build
+        path: artifacts/

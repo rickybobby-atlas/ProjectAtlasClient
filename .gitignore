@@ -1,0 +1,28 @@
+﻿# Visual Studio & .NET Build Artifacts
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+publish/
+artifacts/
+
+# Player Settings & Profiles (Never commit local test profiles!)
+settings.json
+Data/Profiles/
+Plugins/
+
+# Ultima Online Large Data Files (Keep out of Git!)
+*.mul
+*.uop
+*.idx
+*.def
+*.enu
+
+# Inno Setup Output
+installer/Output/
+*.exe
