@@ -20,7 +20,7 @@ $cuoProject = "$PSScriptRoot\..\src\ClassicUO\src\ClassicUO.Client\ClassicUO.Cli
 
 if (Test-Path $bootstrapProject) {
     Write-Host "Building ClassicUO Bootstrap Host (ClassicUO.exe)..." -ForegroundColor Yellow
-    dotnet publish $bootstrapProject -c $Configuration -o "$OutputDir\Client"
+    dotnet publish $bootstrapProject -c $Configuration -p:OutputType=WinExe -p:ApplicationIcon="C:\UO_Projects\ProjectAtlasClient\assets\ProjectAtlas.ico" -o "$OutputDir\Client"
     Write-Host "[OK] ClassicUO Bootstrap compiled." -ForegroundColor Green
 }
 

@@ -485,7 +485,8 @@ namespace AtlasLauncher
                     FileName = clientExe,
                     Arguments = args,
                     WorkingDirectory = Path.GetDirectoryName(clientExe),
-                    UseShellExecute = false
+                    UseShellExecute = false,
+                        CreateNoWindow = true
                 };
                 Process.Start(psi);
             }
