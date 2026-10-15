@@ -26,3 +26,6 @@ Plugins/
 # Inno Setup Output
 installer/Output/
 *.exe
+
+dev.mode
+settings.dev.json

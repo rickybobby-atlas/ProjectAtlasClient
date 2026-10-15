@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>AtlasLauncher</AssemblyName>
+    <ApplicationIcon>..\..\assets\ProjectAtlas.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\assets\launcher-bg.jpg" CopyToOutputDirectory="PreserveNewest" Link="launcher-bg.jpg" />
+    <Content Include="..\..\assets\ProjectAtlas.ico" CopyToOutputDirectory="PreserveNewest" Link="ProjectAtlas.ico" />
+  </ItemGroup>
+
+</Project>
