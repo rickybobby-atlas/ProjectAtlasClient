@@ -5,7 +5,7 @@
     <ApplicationIcon>cuoicon.ico</ApplicationIcon>
     <AssemblyName>cuo</AssemblyName>
     <RootNamespace>ClassicUO</RootNamespace>
-    <PublishAot>false</PublishAot>
+    <PublishAot>true</PublishAot>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

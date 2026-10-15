@@ -14,17 +14,24 @@ New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 Copy-Item "$PSScriptRoot\..\config\atlaslauncher.cfg" -Destination $OutputDir -Force
 Write-Host "[OK] Copied atlaslauncher.cfg to artifacts." -ForegroundColor Green
 
-# Build ClassicUO (Managed Release so Assistant plugins like Razor Enhanced can load)
+# Step A: Build ClassicUO.Bootstrap (Produces ClassicUO.exe plugin host)
+$bootstrapProject = "$PSScriptRoot\..\src\ClassicUO\src\ClassicUO.Bootstrap\src\ClassicUO.Bootstrap.csproj"
 $cuoProject = "$PSScriptRoot\..\src\ClassicUO\src\ClassicUO.Client\ClassicUO.Client.csproj"
-if (Test-Path $cuoProject) {
-    Write-Host "Building ClassicUO Client..." -ForegroundColor Yellow
-    dotnet publish $cuoProject -c $Configuration -o "$OutputDir\Client" -p:PublishAot=false
-    Write-Host "[OK] ClassicUO compiled successfully." -ForegroundColor Green
-} else {
-    Write-Host "[SKIP] ClassicUO not added yet (Scheduled for Phase 2)." -ForegroundColor DarkGray
+
+if (Test-Path $bootstrapProject) {
+    Write-Host "Building ClassicUO Bootstrap Host (ClassicUO.exe)..." -ForegroundColor Yellow
+    dotnet publish $bootstrapProject -c $Configuration -o "$OutputDir\Client"
+    Write-Host "[OK] ClassicUO Bootstrap compiled." -ForegroundColor Green
 }
 
-# Build AtlasLauncher once Phase 5 adds it
+# Step B: Build ClassicUO.Client as NativeAOT Shared Library (Produces cuo.dll)
+if (Test-Path $cuoProject) {
+    Write-Host "Building ClassicUO Engine (cuo.dll NativeAOT)..." -ForegroundColor Yellow
+    dotnet publish $cuoProject -c $Configuration -p:NativeLib=Shared -p:OutputType=Library -r win-x64 -o "$OutputDir\Client"
+    Write-Host "[OK] ClassicUO Engine (cuo.dll) compiled successfully." -ForegroundColor Green
+}
+
+# Step C: Build AtlasLauncher once Phase 5 adds it
 $launcherProject = "$PSScriptRoot\..\src\AtlasLauncher\AtlasLauncher.csproj"
 if (Test-Path $launcherProject) {
     Write-Host "Building AtlasLauncher..." -ForegroundColor Yellow
