@@ -35,7 +35,6 @@ namespace AtlasLauncher
             _devMarkerPath = Path.Combine(_baseDir, "dev.mode");
             _config = LauncherConfig.Load(_configPath);
 
-            // Automatically enable Dev Mode if dev.mode marker file is present
             if (File.Exists(_devMarkerPath))
             {
                 _config.UseInternalIP = true;
@@ -47,6 +46,7 @@ namespace AtlasLauncher
 
         private void InitializeUI()
         {
+            AutoScaleMode = AutoScaleMode.None;
             Text = $"{_config.ShardName} Launcher";
             Size = new Size(960, 620);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -94,10 +94,10 @@ namespace AtlasLauncher
             _titleLabel = new Label
             {
                 Text = _config.ShardName.ToUpperInvariant(),
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Font = new Font("Segoe UI", 21f, FontStyle.Bold, GraphicsUnit.Pixel),
                 ForeColor = Color.FromArgb(230, 195, 115),
                 AutoSize = true,
-                Location = new Point(20, 12),
+                Location = new Point(20, 14),
                 BackColor = Color.Transparent
             };
             topBar.Controls.Add(_titleLabel);
@@ -112,18 +112,18 @@ namespace AtlasLauncher
             topBar.Controls.Add(donateBtn);
             Controls.Add(topBar);
 
-            // Compact Left Launch Panel (50% size, tucked into upper-left archway)
+            // Compact Left Launch Panel (Tucked into upper-left archway)
             _launchPanel = new Panel
             {
                 Location = new Point(16, 66),
-                Size = new Size(204, 195),
+                Size = new Size(204, 198),
                 BackColor = Color.FromArgb(175, 14, 17, 26)
             };
 
             var launchHeader = new Label
             {
                 Text = "LAUNCH CLIENT",
-                Font = new Font("Segoe UI", 8f, FontStyle.Bold),
+                Font = new Font("Segoe UI", 11f, FontStyle.Bold, GraphicsUnit.Pixel),
                 ForeColor = Color.FromArgb(200, 210, 230),
                 Location = new Point(10, 8),
                 AutoSize = true,
@@ -131,9 +131,9 @@ namespace AtlasLauncher
             };
             _launchPanel.Controls.Add(launchHeader);
 
-            AddLaunchButton("ClassicUO + Razor Enhanced", "RazorEnhanced", 28);
-            AddLaunchButton("ClassicUO + Razor", "Razor", 60);
-            AddLaunchButton("ClassicUO + ClassicAssist", "ClassicAssist", 92);
+            AddLaunchButton("Razor Enhanced", "RazorEnhanced", 28);
+            AddLaunchButton("Razor", "Razor", 60);
+            AddLaunchButton("ClassicAssist", "ClassicAssist", 92);
             AddLaunchButton("TazUO (Modern)", "TazUO", 124);
             AddLaunchButton("TazUO + Razor Enhanced", "TazUORazorEnhanced", 156);
 
@@ -151,7 +151,7 @@ namespace AtlasLauncher
             {
                 Location = new Point(20, 10),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = new Font("Segoe UI", 12f, FontStyle.Regular, GraphicsUnit.Pixel),
                 ForeColor = Color.FromArgb(160, 180, 205),
                 BackColor = Color.Transparent
             };
@@ -163,7 +163,7 @@ namespace AtlasLauncher
                 Text = $"Dev Server ({_config.InternalIP}:{_config.InternalPort})",
                 Location = new Point(560, 8),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold, GraphicsUnit.Pixel),
                 ForeColor = Color.FromArgb(120, 235, 150),
                 BackColor = Color.Transparent,
                 Checked = _config.UseInternalIP,
@@ -184,7 +184,7 @@ namespace AtlasLauncher
                 Text = "Initializing patch check...",
                 Location = new Point(20, 30),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold, GraphicsUnit.Pixel),
                 ForeColor = Color.FromArgb(230, 230, 235),
                 BackColor = Color.Transparent
             };
@@ -206,7 +206,7 @@ namespace AtlasLauncher
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(35, 45, 65),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold, GraphicsUnit.Pixel),
                 Cursor = Cursors.Hand
             };
             _checkUpdatesBtn.FlatAppearance.BorderColor = Color.FromArgb(90, 110, 145);
@@ -238,7 +238,7 @@ namespace AtlasLauncher
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(32, 38, 54),
                 ForeColor = Color.FromArgb(220, 225, 235),
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold, GraphicsUnit.Pixel),
                 Cursor = Cursors.Hand
             };
             btn.FlatAppearance.BorderColor = Color.FromArgb(100, 120, 155);
@@ -252,11 +252,13 @@ namespace AtlasLauncher
             {
                 Text = label,
                 Location = new Point(10, yPos),
-                Size = new Size(184, 26),
+                Size = new Size(184, 28),
+                Padding = Padding.Empty,
+                TextAlign = ContentAlignment.MiddleCenter,
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(30, 38, 56),
                 ForeColor = Color.FromArgb(240, 240, 245),
-                Font = new Font("Segoe UI", 8.25f, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold, GraphicsUnit.Pixel),
                 Cursor = Cursors.Hand
             };
             btn.FlatAppearance.BorderColor = Color.FromArgb(185, 150, 80);
@@ -449,7 +451,6 @@ namespace AtlasLauncher
                 return;
             }
 
-            // Use separate settings.dev.json when Dev Server is ticked so Dev & Live credentials never overwrite each other
             string relSettings = _config.UseInternalIP
                 ? profile.SettingsFile.Replace("settings.json", "settings.dev.json")
                 : profile.SettingsFile;
@@ -468,7 +469,6 @@ namespace AtlasLauncher
                 }
             }
 
-            // Write IP, Port, UOPath, and Plugin directly into the JSON file before launching so the client never uses stale ports
             SyncClientSettingsJson(settingsPath, _config.ActiveIP, _config.ActivePort, uoDataPath, _config.ClientVersion, pluginFullPath);
 
             string args = $"-settings \"{settingsPath}\" -uopath \"{uoDataPath}\" -ip \"{_config.ActiveIP}\" -port {_config.ActivePort} -clientversion \"{_config.ClientVersion}\" -encryption 0";
@@ -486,7 +486,7 @@ namespace AtlasLauncher
                     Arguments = args,
                     WorkingDirectory = Path.GetDirectoryName(clientExe),
                     UseShellExecute = false,
-                        CreateNoWindow = true
+                    CreateNoWindow = true
                 };
                 Process.Start(psi);
             }
